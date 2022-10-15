@@ -1,5 +1,18 @@
 function Calculadora() {
   this.display = document.querySelector(".display");
+  this.start = () => {
+    this.captureClick();
+    this.captureEnter();
+  };
+  this.captureEnter = () => {
+    if (
+      this.display.addEventListener("keypress", (e) => {
+        if (e.keyCode === 13) {
+          this.equal();
+        }
+      })
+    );
+  };
   this.captureClick = () => {
     document.addEventListener("click", (e) => {
       const el = e.target;
@@ -9,7 +22,10 @@ function Calculadora() {
       if (el.classList.contains("btn-eq")) this.equal();
     });
   };
-  this.addNumDisplay = (el) => (this.display.value += el.innerText);
+  this.addNumDisplay = (el) => {
+    this.display.value += el.innerText;
+    this.display.focus();
+  };
   this.clear = (el) => (this.display.value = "");
   this.delete = (el) => (this.display.value = this.display.value.slice(0, -1));
   this.equal = () => {
@@ -25,7 +41,6 @@ function Calculadora() {
       return;
     }
   };
-  this.start = () => this.captureClick();
 }
 
 const calculadora = new Calculadora();
